@@ -1,0 +1,22 @@
+{
+  "name": "code-sense",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "start": "wrangler dev",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@cloudflare/ai": "^1.1.0",
+    "hono": "^4.2.3"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-pool-workers": "^0.1.19",
+    "@cloudflare/workers-types": "^4.20240405.0",
+    "typescript": "^5.4.5",
+    "vitest": "^1.4.0",
+    "wrangler": "^3.50.0"
+  }
+}
