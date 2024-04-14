@@ -1,0 +1,3 @@
+{
+  "extends": "@retriedge/typescript-config/base.json"
+}
