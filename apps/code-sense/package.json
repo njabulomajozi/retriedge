@@ -3,10 +3,6 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "deploy-a": "wrangler deploy",
-    "dev-a": "wrangler dev",
-    "start-a": "wrangler dev",
-    "test-a": "vitest",
     "dev": "nodemon ./src/app.ts",
     "build": "tsc",
     "start": "node dist/app.js",

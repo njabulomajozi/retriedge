@@ -56,5 +56,5 @@ app.onError((err, c) => {
 
 serve({
 	fetch: app.fetch,
-	port: 3001
+	port: (process.env.APP_PORT as any as number) || 3001
   })
