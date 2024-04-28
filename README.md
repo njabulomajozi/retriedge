@@ -54,29 +54,27 @@ Retriedge
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Built With
-* [![Next][Next.js]][Next-url]
+* Langchain: A framework for building and interacting with LLMs.
+* Hono: A lightweight framework for building serverless Node.js applications.
+* PostgreSQL: A popular open-source relational database management system.
 * [![React][React.js]][React-url]
-* [![TypeScript][TypeScript]][TypeScript-url]
-* [![Tailwind][Tailwind]][Tailwind-url]
-* [![ShadUI][ShadUI]][ShadUI-url]
-* [![Lodash][Lodash]][Lodash-url]
+* [![Next][Next.js]][Next-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 <!-- GETTING STARTED -->
 ## Getting Started
+These instructions will guide you through setting up and using Retriedge.
 
 ### Prerequisites
-
-* Node.js (>=18)
-* yarn
-* Cloudflare account
-* Wrangler CLI installed
+* A PostgreSQL database
+* Node.js (>=18) and npm (or yarn) installed on your system
+* A Google Cloud project with Vertex AI enabled (for LLM access)
 
 ### Installation
 
-1. Clone the repo
+1. Clone this repository:
    ```sh
    git clone https://github.com/njabulomajozi/retriedge.git
    ```
@@ -88,14 +86,26 @@ Retriedge
    ```sh
    yarn
    ```
-4. Configure wrangler
-    You need to configure Wrangler with your Cloudflare account in order to use services such as AI, Vector DB and etc
+4. Configure code sense environment
+    You need to configure code sense app to have these env variables
     ```sh
-   wrangler config 
+      APP_PORT: Value being 3001
+      DB_HOST: Hostname of your PostgreSQL database server
+      DB_PORT: Port number of your PostgreSQL database server
+      DB_DATABASE: Database name on your PostgreSQL server
+      DB_USER: Username for your PostgreSQL database user
+      DB_PASS: Password for your PostgreSQL database user
+      GOOGLE_CLOUD_PROJECT_ID: Project ID for your Google Cloud project with Vertex AI enabled
    ```
-4. Start the development server
+5. Configure web environment
+    You need to configure web app to have these env variables
+    ```sh
+      NEXT_PUBLIC_BASE_URL: value being "http://localhost:3000"
+      API_CODE_SENSE: Value being "http://localhost:3001"
+   ```
+6. Start the development server
    ```sh
-   yarn dev
+    yarn dev
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -104,12 +114,7 @@ Retriedge
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-* On api client, send a post request to http://localhost:8787/generate-data, with body
-    ```json
-    {
-        "schema": "<DATABASE DDLs>"
-    }
-    ```
+* Open your browser and go to http://localhost:3000
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -117,10 +122,9 @@ Retriedge
 
 <!-- ROADMAP -->
 ## Roadmap
-- MVP
-  - 
-- 2nd Version
-  - 
+- Schema Input Methods: Implement various ways for users to provide their database schema (e.g., file upload, visual interface).
+- LLM Fine-tuning: Explore techniques to fine-tune the LLM for improved test data generation accuracy.
+- Advanced Functionalities: Integrate functionalities like codebase understanding, code suggestion, and code review assistance (long-term goals).
 
 See the [open issues](https://github.com/njabulomajozi/retriedge/issues) for a full list of proposed features (and known issues).
 
@@ -165,7 +169,11 @@ Project Link: [https://github.com/njabulomajozi/retriedge](https://github.com/nj
 
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
+This project acknowledges the following resources and communities:
 
+- Langchain for its LLM development framework.
+- Google Vertex AI for providing the LLM capabilities.
+- The open-source communities behind PostgreSQL, Node.js, React, and Hono.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
