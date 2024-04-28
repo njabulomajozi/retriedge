@@ -1,15 +1,14 @@
-import config from 'config';
 import { SqlDatabase } from 'langchain/sql_db';
 import { DataSource } from 'typeorm';
 
 const getDB = async () => {
 	const datasource = new DataSource({
 		type: 'postgres',
-		host: config.get<string>('database.host'),
-		port: config.get<number>('database.port'),
-		username: config.get<string>('database.username'),
-		password: config.get<string>('database.password'),
-		database: config.get<string>('database.database'),
+		host: process.env.DB_HOST,
+		port: process.env.DB_PORT as any,
+		database: process.env.DB_DATABASE,
+		username: process.env.DB_USER,
+		password: process.env.DB_PASS
 	});
 
 	const db = await SqlDatabase.fromDataSourceParams({

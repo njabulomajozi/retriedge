@@ -1,5 +1,8 @@
 import { serve } from '@hono/node-server';
 import { Hono } from 'hono';
+import { config } from 'dotenv';
+
+config();
 
 import { getDB, getDBSchema } from './modules/database';
 import { google } from './modules/ai';
@@ -51,4 +54,7 @@ app.onError((err, c) => {
 	);
 });
 
-serve(app);
+serve({
+	fetch: app.fetch,
+	port: 3001
+  })
