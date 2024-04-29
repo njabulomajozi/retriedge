@@ -4,35 +4,26 @@ import 'highlight.js/styles/monokai.css';
 
 interface IProps {
 	direction: 'left' | 'right';
+	markdown: string;
 }
-
-const markdown = `
-\`\`\`javascript
-function helloWorld() {
- console.log("Hello, world!");
-}
-\`\`\`
-`;
 
 const Message = (props: IProps) => {
-	const { direction } = props;
+	const { direction, markdown } = props;
 
-	const containerClass =
-		direction === 'left'
-			? 'flex items-start'
-			: 'flex flex-row-reverse items-start';
+	const imgUrl = `https://dummyimage.com/128x128/354ea1/ffffff&text=${direction === 'left' ? 'S' : 'U'}`;
 
 	return (
-		<div className={containerClass}>
-			<img
-				className="ml-2 h-8 w-8 rounded-full"
-				src="https://dummyimage.com/128x128/354ea1/ffffff&text=G"
-			/>
-
-			<div className="flex min-h-[85px] rounded-b-xl rounded-tl-xl bg-slate-50 p-4 dark:bg-slate-800 sm:min-h-0 sm:max-w-md md:max-w-2xl">
-                <Markdown rehypePlugins={[rehypeHighlight]}>{markdown}</Markdown>
+		<div className="">
+			<div className="flex justify-center">
+				<img className="rounded-full h-50 w-50" src={imgUrl} />
 			</div>
-			<div className="mr-2 mt-1 flex flex-col-reverse gap-2 text-slate-500 sm:flex-row">
+
+			<div className="pt-4 flex flex-col">
+				<Markdown rehypePlugins={[rehypeHighlight]}>
+					{markdown}
+				</Markdown>
+			</div>
+			<div className="">
 				<button className="hover:text-blue-600" type="button">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -96,13 +87,4 @@ const Message = (props: IProps) => {
 	);
 };
 
-const Messages = () => {
-	return (
-		<div className="flex-1 space-y-6 overflow-y-auto rounded-xl bg-slate-200 p-4 text-sm leading-6 text-slate-900 shadow-sm dark:bg-slate-900 dark:text-slate-300 sm:text-base sm:leading-7">
-			<Message direction="left" />
-            <Message direction="right" />
-		</div>
-	);
-};
-
-export default Messages;
+export default Message;

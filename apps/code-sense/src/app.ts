@@ -1,30 +1,33 @@
 import { serve } from '@hono/node-server';
 import { Hono } from 'hono';
+import { z } from 'zod';
+import { zValidator } from '@hono/zod-validator';
 import { config } from 'dotenv';
 
 config();
 
-import { getDB, getDBSchema } from './modules/database';
-import { google } from './modules/ai';
-import { generateTestDataScripts } from './modules/test-data';
-
-const generateData = async () => {
-	const db = await getDB();
-	const schema = await getDBSchema(db);
-
-	const response = await generateTestDataScripts({
-		db,
-		schema,
-		llm: google.llm
-	});
-
-	return response;
-};
+import { generateTestDataScripts, getTestDataDBSchema } from './modules/test-data';
 
 const app = new Hono();
 
-app.post('/generate-data', async (c: any) => {
-	const response = await generateData();
+const mapper = {
+	GENERATE: async () => {
+		return await generateTestDataScripts();
+	},
+	SCHEMA: async () => {
+		return await getTestDataDBSchema();
+	}
+}
+
+app.post('/test-data', zValidator(
+    'json',
+    z.object({
+		type: z.enum(['GENERATE', 'SCHEMA'])
+    })
+  ), async (c) => {
+	const {type} = await c.req.json() as {type: 'GENERATE' | 'SCHEMA'};
+
+	const response = await mapper[type]();
 
 	return c.json(
 		{

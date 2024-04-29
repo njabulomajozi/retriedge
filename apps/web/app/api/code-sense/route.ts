@@ -3,10 +3,19 @@ import axios from 'axios';
 
 export async function POST(req: NextRequest) {
 	try {
-		const response = await axios.post(
-			`${process.env.API_CODE_SENSE}/generate-data`,
-			{}
-		);
+		const { type } = await req.json();
+
+		const response = await axios.request({
+			method: 'post',
+			maxBodyLength: Infinity,
+			url: `${process.env.API_CODE_SENSE}/test-data`,
+			headers: { 
+			  'Content-Type': 'application/json'
+			},
+			data: JSON.stringify({
+				type
+			  })
+		});
 
 		return Response.json(response.data, {
 			status: 200,
