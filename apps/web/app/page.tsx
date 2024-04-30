@@ -33,6 +33,7 @@ export default function Home() {
 	const [messages, setMessages] = useState<
 		Array<{ markdown: string; type: 'U' | 'S' | 'A' }>
 	>([]);
+	const [error, setError] = useState<Error | null>(null);
 
 	useEffect(() => {
 		if (!isLoading && scrollRef.current) {
@@ -43,6 +44,7 @@ export default function Home() {
 	const handlePromptTrigger = async (type: 'GENERATE' | 'SCHEMA') => {
 		try {
 			setIsLoading(true);
+			setError(null);
 			const url = `${baseUrl}/code-sense`;
 
 			const response = await fetch(url, {
@@ -68,6 +70,7 @@ export default function Home() {
 			]);
 		} catch (err) {
 			console.error(err);
+			setError(err as Error);
 		} finally {
 			setIsLoading(false);
 		}
@@ -75,7 +78,7 @@ export default function Home() {
 
 	return (
 		<div className="flex flex-col w-full h-screen justify-between p-4a">
-			<div className="h-[82%] p-2 space-y-8 overflow-y-auto">
+			<div className="h-[82%] p-2 space-y-8 overflow-y-auto overflow-x-auto">
 				{
 					messages.map(({ type, markdown }) => (
 						<Message

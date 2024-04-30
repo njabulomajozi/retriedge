@@ -1,3 +1,5 @@
+import { FC } from 'react';
+
 interface IProps {
 	handlePromptTrigger: (type: 'GENERATE' | 'SCHEMA') => Promise<void>;
 }
@@ -18,9 +20,7 @@ const suggestions: Array<ISuggestion> = [
 	},
 ];
 
-const Prompt = (props: IProps) => {
-	const { handlePromptTrigger } = props;
-
+const Prompt: FC<IProps> = ({ handlePromptTrigger }) => {
 	return (
 		<div className="flex justify-end overflow-x-auto">
 			{suggestions.map(({ key, title }) => (
