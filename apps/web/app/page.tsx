@@ -3,15 +3,35 @@
 import { useEffect, useRef, useState } from 'react';
 import Message from '@app/components/Message';
 import Prompt from '@app/components/Prompt';
-import Placeholder from '@app/components/Placeholder';
+import Animation from '@app/components/Animation';
+
+import AskAQuestion from '../public/animations/ask-a-question.json';
+import LoadingAi from '../public/animations/loading-ai.json';
 
 const baseUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api`;
+
+const EmptyMessagesPlaceholder = () => {
+	return (
+		<div className='flex flex-col'>
+			<Animation animationData={AskAQuestion} />
+			<h2 className='text-center text-4xl font-extrabold'>Ask me anything</h2>
+		</div>
+	);
+};
+
+const LoadingAIPlaceholder = () => {
+	return (
+		<div className='flex flex-col'>
+			<Animation animationData={LoadingAi} />
+		</div>
+	);
+};
 
 export default function Home() {
 	const scrollRef = useRef<HTMLDivElement>(null);
 	const [isLoading, setIsLoading] = useState(false);
 	const [messages, setMessages] = useState<
-		Array<{ markdown: string; direction: 'left' | 'right' }>
+		Array<{ markdown: string; type: 'U' | 'S' | 'A' }>
 	>([]);
 
 	useEffect(() => {
@@ -43,7 +63,7 @@ export default function Home() {
 				...prevMessages,
 				{
 					markdown: responseData.data.response,
-					direction: 'left',
+					type: 'A',
 				},
 			]);
 		} catch (err) {
@@ -54,22 +74,28 @@ export default function Home() {
 	};
 
 	return (
-		<div className="flex flex-col p-4">
-			<div className="space-y-4">
-				{messages.map(({ direction, markdown }) => (
-					<Message
-						key={markdown}
-						direction={direction}
-						markdown={markdown}
-					/>
-				))}
+		<div className="flex flex-col w-full h-screen justify-between p-4a">
+			<div className="h-[82%] p-2 space-y-8 overflow-y-auto">
+				{
+					messages.map(({ type, markdown }) => (
+						<Message
+							key={markdown}
+							type={type}
+							markdown={markdown}
+						/>
+					))
+				}
+
+				{
+					!messages.length && !isLoading && <EmptyMessagesPlaceholder />
+				}
+
+				{
+					isLoading && <LoadingAIPlaceholder />
+				}
 			</div>
-			<div className="" ref={scrollRef}>
-				{isLoading ? (
-					<Placeholder />
-				) : (
-					<Prompt handlePromptTrigger={handlePromptTrigger} />
-				)}
+			<div className="fixed bottom-0 p-4 flex flex-col">
+				<Prompt handlePromptTrigger={handlePromptTrigger} />
 			</div>
 		</div>
 	);

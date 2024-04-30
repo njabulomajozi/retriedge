@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import Lottie from 'react-lottie';
-import * as animationData from './loading-ai.json';
 
-const Placeholder = () => {
+interface IProps {
+	animationData: any;
+}
+
+const Animation = (props: IProps) => {
+	const {animationData} = props;
+
 	const [isStopped, setIsStopped] = useState(false);
 	const [isPaused, setIsPaused] = useState(false);
 
@@ -28,4 +33,4 @@ const Placeholder = () => {
 	);
 };
 
-export default Placeholder;
+export default Animation;
