@@ -98,7 +98,7 @@ export default function Home() {
 				}
 			</div>
 			<div className="fixed bottom-0 p-4 flex flex-col">
-				<Prompt handlePromptTrigger={handlePromptTrigger} />
+				<Prompt id="RETRIEDGE_TESTING_PROMPT" handlePromptTrigger={handlePromptTrigger} />
 			</div>
 		</div>
 	);
