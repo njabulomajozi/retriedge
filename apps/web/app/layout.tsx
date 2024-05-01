@@ -14,18 +14,18 @@ export const metadata: Metadata = {
 
 interface IMenuItem {
 	icons: {
-    left: {
-      iconName: string;
-      alt: string;
-      width: number;
-      height: number;
-    };
-    right?: {
-      iconName: string;
-      alt: string;
-      width: number;
-      height: number;
-    };
+		left: {
+			iconName: string;
+			alt: string;
+			width: number;
+			height: number;
+		};
+		right?: {
+			iconName: string;
+			alt: string;
+			width: number;
+			height: number;
+		};
 	};
 	href: string;
 	title: string;
@@ -48,26 +48,14 @@ const Counter = (props: { value: string }) => {
 };
 
 const menuItems: Array<IMenuItem> = [
-	// {
-	// 	icons: {
-	// 		left: {
-  //       iconName: 'home',
-  //       alt: '',
-  //       width: 32,
-  //       height: 32
-  //     }
-	// 	},
-	// 	href: '/',
-	// 	title: 'Dashboard',
-	// },
-  {
+	{
 		icons: {
 			left: {
-        iconName: 'database',
-        alt: '',
-        width: 32,
-        height: 32
-      }
+				iconName: 'database',
+				alt: '',
+				width: 32,
+				height: 32,
+			},
 		},
 		href: '/',
 		title: 'Testing',
@@ -135,13 +123,25 @@ function Base({ children }: { children: React.ReactNode }) {
 										href={href}
 										className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
 									>
-                    {
-                      <Image src={`/icons/${icons.left.iconName}.svg`} alt={icons.left.alt} width={icons.left.width} height={icons.left.height} />
-                    }
+										{
+											<Image
+												src={`/icons/${icons.left.iconName}.svg`}
+												alt={icons.left.alt}
+												width={icons.left.width}
+												height={icons.left.height}
+												className="filter invert-[100%] sepia-[0%] saturate-[7430%] hue-rotate-[72deg] brightness-[116%] contrast-[99%]"
+											/>
+										}
 										<span className="ms-3">{title}</span>
-                    {
-                      icons.right && <Image src={`/icons/${icons.right.iconName}.svg`} alt={icons.right.alt} width={icons.right.width} height={icons.right.height} />
-                    }
+										{icons.right && (
+											<Image
+												src={`/icons/${icons.right.iconName}.svg`}
+												alt={icons.right.alt}
+												width={icons.right.width}
+												height={icons.right.height}
+												className="filter invert-[100%] sepia-[0%] saturate-[7430%] hue-rotate-[72deg] brightness-[116%] contrast-[99%]"
+											/>
+										)}
 									</Link>
 								</li>
 							);
@@ -150,7 +150,9 @@ function Base({ children }: { children: React.ReactNode }) {
 				</div>
 			</aside>
 
-      <div className='bg-red-400a flex sm:ml-64 p-8 pt-[5%]'>{children}</div>
+			<div className="bg-red-400a flex sm:ml-64 p-8 pt-[5%]">
+				{children}
+			</div>
 		</>
 	);
 }
@@ -162,13 +164,12 @@ export default function RootLayout({
 }): JSX.Element {
 	return (
 		// <ClerkProvider>
-			<html lang="en">
-				<body className={inter.className}>
-					<Base>{children}</Base>
-					{/* <Toaster /> */}
-				</body>
-			</html>
+		<html lang="en">
+			<body className={inter.className}>
+				<Base>{children}</Base>
+				{/* <Toaster /> */}
+			</body>
+		</html>
 		// </ClerkProvider>
 	);
 }
-
